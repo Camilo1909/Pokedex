@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/dropBtn"
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <TextView
@@ -134,7 +134,7 @@
         app:layout_constraintTop_toTopOf="@+id/speedTx" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/dropBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
