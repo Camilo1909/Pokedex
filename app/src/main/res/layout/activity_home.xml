@@ -7,7 +7,7 @@
     tools:context=".HomeActivity">
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/catchPokemonET"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/searchEt"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
@@ -30,53 +30,53 @@
         android:ems="10"
         android:hint="Search"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintEnd_toStartOf="@+id/searchBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/catchBtn" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/seeBtn"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="See"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/catchBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/catchPokemonET" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/catchBtn"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginEnd="24dp"
         android:text="Catch"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
+        app:layout_constraintBottom_toBottomOf="@+id/seeBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button4" />
+        app:layout_constraintStart_toEndOf="@+id/seeBtn" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/pokemonRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/searchEt" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/searchBtn"
         android:layout_width="46dp"
         android:layout_height="48dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName3"
+        app:layout_constraintBottom_toBottomOf="@+id/searchEt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintStart_toEndOf="@+id/searchEt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

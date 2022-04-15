@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Pokedex</string>
+    <string name="drop">Drop</string>
+    <string name="catc">Catch</string>
+    <string name="defense">Defense</string>
+    <string name="attack">Attack</string>
+    <string name="speed">Speed</string>
+    <string name="life">Life</string>
 </resources>
