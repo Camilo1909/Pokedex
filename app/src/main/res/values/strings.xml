@@ -6,4 +6,11 @@
     <string name="attack">Attack</string>
     <string name="speed">Speed</string>
     <string name="life">Life</string>
+    <string name="see">See</string>
+    <string name="go">></string>
+    <string name="Ctch_pk">Catch a pokemon</string>
+    <string name="srch">Search</string>
+    <string name="BtnLog">Login</string>
+    <string name="user">Username</string>
+    <string name="Trainer">Pokemon trainer username</string>
 </resources>
