@@ -1,5 +1,8 @@
 package com.example.pokedex
 
+import android.graphics.Bitmap
+import java.io.Serializable
+
 data class Pokemon (
     val username:String,
     val img: String,
@@ -10,7 +13,7 @@ data class Pokemon (
     val attack: String,
     val speed: String,
     val life: String,
-    )
+    ):Serializable
     /*constructor(img:String,name: String,type: String,dateCatch:String,defense: String,attack: String,speed: String,life: String){
         this.img = img
         this.name = name

@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         query.get().addOnCompleteListener{ task ->
 
             if (task.result?.size() == 0){
-                FirebaseFirestore.getInstance().collection("users").document(user.id).set(user)
+                FirebaseFirestore.getInstance().collection("users").document(user.username).set(user)
                 val intent = Intent(this@MainActivity, HomeActivity::class.java).apply {
-                    putExtra("username",user)
+                    putExtra("user",user)
                 }
                 startActivity(intent)
                 finish()
@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
                     break
                 }
                 val intent = Intent(this@MainActivity, HomeActivity::class.java).apply {
-                    putExtra("username",user)
+                    putExtra("user",existingUser)
                 }
                 startActivity(intent)
                 finish()
-            }git
+            }
 
         }
 

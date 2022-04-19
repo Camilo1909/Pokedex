@@ -3,8 +3,10 @@ package com.example.pokedex
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.pokedex.databinding.ActivityMainBinding
 import com.example.pokedex.databinding.ActivityPokemonViewBinding
+import com.google.firebase.firestore.FirebaseFirestore
 
 class PokemonViewActivity : AppCompatActivity() {
 
