@@ -1,16 +1,17 @@
 package com.example.pokedex
 
-class Pokemon {
-    val img: String
-    val name: String
-    val type: String
-    val dateCatch:String
-    val defense: String
-    val attack: String
-    val speed: String
-    val life: String
-
-    constructor(img:String,name: String,type: String,dateCatch:String,defense: String,attack: String,speed: String,life: String){
+data class Pokemon (
+    val username:String,
+    val img: String,
+    val name: String,
+    val type: String,
+    val dateCatch:String,
+    val defense: String,
+    val attack: String,
+    val speed: String,
+    val life: String,
+    )
+    /*constructor(img:String,name: String,type: String,dateCatch:String,defense: String,attack: String,speed: String,life: String){
         this.img = img
         this.name = name
         this.type = type
@@ -19,5 +20,4 @@ class Pokemon {
         this.attack = attack
         this.speed = speed
         this.life = life
-    }
-}
+    }*/
