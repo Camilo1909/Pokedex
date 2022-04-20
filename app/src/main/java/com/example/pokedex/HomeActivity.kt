@@ -57,6 +57,10 @@ class HomeActivity : AppCompatActivity(){
         binding.catchBtn.setOnClickListener {
             GETRequest(binding.catchPokemonET.text.toString(),false)
         }
+
+        binding.searchBtn.setOnClickListener{
+            searchPokemon(binding.searchEt.text.toString())
+        }
     }
 
     fun GETRequest(namePk: String, show:Boolean){
@@ -112,6 +116,24 @@ class HomeActivity : AppCompatActivity(){
 
             }else{
 
+            }
+        }
+    }
+
+    fun searchPokemon(namePk:String){
+        val query = FirebaseFirestore.getInstance().collection("users").document(user.username).collection("pokemones").whereEqualTo("name",namePk)
+        query.get().addOnCompleteListener { task ->
+            if (task.result?.size()!=0){
+                lateinit var pokemonSearch : Pokemon
+                adapter.deletePokemons()
+                for (document in task.result!!){
+                    pokemonSearch = document.toObject(Pokemon::class.java)
+                    adapter.addPokemon(pokemonSearch)
+                    adapter.notifyDataSetChanged()
+                    break
+                }
+            }else{
+                Toast.makeText(this,"Nombre incorrecto, o aun no has atrapado este pokemon",Toast.LENGTH_LONG).show()
             }
         }
     }

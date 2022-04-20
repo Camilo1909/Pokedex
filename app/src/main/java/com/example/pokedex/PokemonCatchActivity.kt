@@ -30,7 +30,6 @@ class PokemonCatchActivity : AppCompatActivity() {
         binding.typeTxt.text = "(${pokemon.type})"
         Picasso.get().load(pokemon.img).into(binding.pokeIg)
 
-
         binding.catchBt.setOnClickListener {
             FirebaseFirestore.getInstance().collection("users").document(user.username).collection("pokemones").document(pokemon.name).set(pokemon)
             val intent = Intent(this, HomeActivity::class.java).apply {
