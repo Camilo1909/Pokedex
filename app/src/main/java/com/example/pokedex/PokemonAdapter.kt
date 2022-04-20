@@ -18,8 +18,8 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonViewHolder>(){
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
         val pokemon = pokemons[position]
-        val URIpokemon = Uri.parse(pokemon.img)
-        holder.pokemonImg.setImageURI(URIpokemon)
+        //val URIpokemon = Uri.parse(pokemon.img)
+        //holder.pokemonImg.setImageURI(URIpokemon)
         holder.nameText.text = pokemon.name
         holder.dateText.text = pokemon.dateCatch
     }

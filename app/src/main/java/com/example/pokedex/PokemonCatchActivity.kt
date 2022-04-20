@@ -26,10 +26,9 @@ class PokemonCatchActivity : AppCompatActivity() {
         binding.defenseTxt.text = pokemon.defense
         binding.speedTxt.text = pokemon.speed
         binding.lifeTxt.text = pokemon.life
-        binding.nameTxt.text = pokemon.name
-        binding.typeTxt.text = pokemon.type
+        binding.nameTxt.text = pokemon.name.uppercase()
+        binding.typeTxt.text = "(${pokemon.type})"
 
-        Log.e("<<<",pokemon.img)
 
         binding.catchBt.setOnClickListener {
             FirebaseFirestore.getInstance().collection("users").document(user.username).collection("pokemones").document(pokemon.name).set(pokemon)

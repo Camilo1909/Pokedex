@@ -1,6 +1,7 @@
 package com.example.pokedex
 
 import android.content.Intent
+import android.icu.text.DateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,15 +11,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokedex.databinding.ActivityHomeBinding
 import com.example.pokedex.databinding.ActivityMainBinding
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.net.URL
+import java.util.*
 import javax.net.ssl.HttpsURLConnection
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityHomeBinding
 
@@ -30,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
+
         val pokemonRecycler = binding.pokemonRecycler
         pokemonRecycler.setHasFixedSize(true)
         pokemonRecycler.layoutManager = LinearLayoutManager(this)
@@ -37,6 +41,14 @@ class HomeActivity : AppCompatActivity() {
         setContentView(view)
 
         user = intent.extras?.get("user") as User
+
+        FirebaseFirestore.getInstance().collection("users").document(user.username).collection("pokemones").get().addOnCompleteListener{ task ->
+          for (doc in task.result!!){
+              val pk = doc.toObject(Pokemon::class.java)
+              adapter.addPokemon(pk)
+              adapter.notifyDataSetChanged()
+          }
+        }
 
         binding.seeBtn.setOnClickListener {
             GETRequest(binding.catchPokemonET.text.toString())
@@ -54,7 +66,6 @@ class HomeActivity : AppCompatActivity() {
             val client = url.openConnection() as HttpsURLConnection
             client.requestMethod = "GET"
             val json = client.inputStream.bufferedReader().readText()
-            Log.e(">>>>", json)
             //val pokemon = Gson().fromJson(json,Pokemon::class.java)
             if(json.isEmpty() == false){
                 val jsonObject = JSONObject(json)
@@ -74,7 +85,7 @@ class HomeActivity : AppCompatActivity() {
                     img!!,
                     name!!,
                     type!!,
-                    "fecha",
+                    DateFormat.getDateInstance().format(Calendar.getInstance().time),
                     "${defense!!}",
                     "${attack!!}",
                     "${speed!!}",
@@ -85,6 +96,7 @@ class HomeActivity : AppCompatActivity() {
                     putExtra("user",user)
                 }
                 startActivity(intent)
+                finish()
             }else{
 
             }
