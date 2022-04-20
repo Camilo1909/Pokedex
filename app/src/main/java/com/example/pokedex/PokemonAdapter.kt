@@ -1,9 +1,9 @@
 package com.example.pokedex
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 class PokemonAdapter: RecyclerView.Adapter<PokemonViewHolder>(){
 
@@ -18,10 +18,9 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonViewHolder>(){
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
         val pokemon = pokemons[position]
-        //val URIpokemon = Uri.parse(pokemon.img)
-        //holder.pokemonImg.setImageURI(URIpokemon)
         holder.nameText.text = pokemon.name
         holder.dateText.text = pokemon.dateCatch
+        Picasso.get().load(pokemon.img).into(holder.pokemonImg)
     }
 
     override fun getItemCount(): Int {

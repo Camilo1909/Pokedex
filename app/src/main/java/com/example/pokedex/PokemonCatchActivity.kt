@@ -1,12 +1,12 @@
 package com.example.pokedex
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import com.example.pokedex.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
 import com.example.pokedex.databinding.ActivityPokemonCatchBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
+
 
 class PokemonCatchActivity : AppCompatActivity() {
 
@@ -28,6 +28,7 @@ class PokemonCatchActivity : AppCompatActivity() {
         binding.lifeTxt.text = pokemon.life
         binding.nameTxt.text = pokemon.name.uppercase()
         binding.typeTxt.text = "(${pokemon.type})"
+        Picasso.get().load(pokemon.img).into(binding.pokeIg)
 
 
         binding.catchBt.setOnClickListener {
