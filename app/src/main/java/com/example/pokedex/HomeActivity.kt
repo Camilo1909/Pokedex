@@ -51,16 +51,15 @@ class HomeActivity : AppCompatActivity(){
         }
 
         binding.seeBtn.setOnClickListener {
-            GETRequest(binding.catchPokemonET.text.toString())
+            GETRequest(binding.catchPokemonET.text.toString(),true)
         }
 
         binding.catchBtn.setOnClickListener {
-            val intent = Intent(this, PokemonCatchActivity::class.java)
-            startActivity(intent)
+            GETRequest(binding.catchPokemonET.text.toString(),false)
         }
     }
 
-    fun GETRequest(namePk: String){
+    fun GETRequest(namePk: String, show:Boolean){
         lifecycleScope.launch(Dispatchers.IO) {
             val url = URL("${Constants.POKE_API}/pokemon/${namePk}")
             val client = url.openConnection() as HttpsURLConnection
@@ -91,12 +90,26 @@ class HomeActivity : AppCompatActivity(){
                     "${speed!!}",
                     "${life!!}"
                 )
-                val intent = Intent(this@HomeActivity, PokemonCatchActivity::class.java).apply {
-                    putExtra("pokemon",pokemon).
-                    putExtra("user",user)
+
+                if (show){
+                    val intent = Intent(this@HomeActivity, PokemonCatchActivity::class.java).apply {
+                        putExtra("pokemon",pokemon).
+                        putExtra("user",user)
+                    }
+                    startActivity(intent)
+                    finish()
+                }else{
+                    FirebaseFirestore.getInstance().collection("users").document(user.username).collection("pokemones").document(pokemon.name).set(pokemon)
+                    FirebaseFirestore.getInstance().collection("users").document(user.username).collection("pokemones").get().addOnCompleteListener{ task ->
+                        adapter.deletePokemons()
+                        for (doc in task.result!!){
+                            val pk = doc.toObject(Pokemon::class.java)
+                            adapter.addPokemon(pk)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
                 }
-                startActivity(intent)
-                finish()
+
             }else{
 
             }

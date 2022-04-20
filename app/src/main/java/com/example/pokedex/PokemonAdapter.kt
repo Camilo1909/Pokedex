@@ -28,6 +28,10 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonViewHolder>(){
         return pokemons.size
     }
 
+    fun deletePokemons(){
+        pokemons.clear()
+    }
+
     fun addPokemon(pokemon:Pokemon){
         pokemons.add(pokemon)
     }
