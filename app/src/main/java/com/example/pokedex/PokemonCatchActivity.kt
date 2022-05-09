@@ -4,21 +4,26 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pokedex.databinding.ActivityPokemonCatchBinding
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.pokedex.model.Pokemon
+import com.example.pokedex.model.User
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 
 class PokemonCatchActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityPokemonCatchBinding
+    private val binding: ActivityPokemonCatchBinding by lazy{
+        ActivityPokemonCatchBinding.inflate(layoutInflater)
+    }
+
     private lateinit var user: User
     private lateinit var pokemon: Pokemon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPokemonCatchBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
+
         user = intent.extras?.get("user") as User
         pokemon = intent.extras?.get("pokemon") as Pokemon
 
@@ -31,7 +36,7 @@ class PokemonCatchActivity : AppCompatActivity() {
         Picasso.get().load(pokemon.img).into(binding.pokeIg)
 
         binding.catchBt.setOnClickListener {
-            FirebaseFirestore.getInstance().collection("users").document(user.username).collection("pokemones").document(pokemon.name).set(pokemon)
+            Firebase.firestore.collection("users").document(user.username).collection("pokemones").document(pokemon.name).set(pokemon)
             val intent = Intent(this, HomeActivity::class.java).apply {
                 putExtra("user",user)
             }

@@ -1,4 +1,4 @@
-package com.example.pokedex
+package com.example.pokedex.model
 
 import android.graphics.Bitmap
 import java.io.Serializable
@@ -8,7 +8,7 @@ data class Pokemon (
     val img: String = "",
     val name: String = "",
     val type: String = "",
-    val dateCatch:String = "",
+    val dateCatch: Long = 0,
     val defense: String = "",
     val attack: String = "",
     val speed: String = "",
