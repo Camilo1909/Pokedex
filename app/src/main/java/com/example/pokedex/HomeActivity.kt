@@ -17,7 +17,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.io.FileNotFoundException
 import java.net.URL
 import java.util.*
 import javax.net.ssl.HttpsURLConnection
@@ -82,35 +84,40 @@ class HomeActivity : AppCompatActivity(){
             val url = URL("${Constants.POKE_API}/pokemon/${namePk}")
             val client = url.openConnection() as HttpsURLConnection
             client.requestMethod = "GET"
-            val json = client.inputStream.bufferedReader().readText()
-            val jsonObject = JSONObject(json)
-            val name = jsonObject.optJSONObject("species")?.optString("name")
-            val type = jsonObject.optJSONArray("types")?.getJSONObject(0)?.optJSONObject("type")
-                ?.optString("name")
-
-            val img = jsonObject.optJSONObject("sprites")?.optString("front_default")
-            val stat = jsonObject.optJSONArray("stats")
-            val life = stat?.getJSONObject(0)?.optInt("base_stat")
-            val attack = stat?.getJSONObject(1)?.optInt("base_stat")
-            val defense = stat?.getJSONObject(2)?.optInt("base_stat")
-            val speed = stat?.getJSONObject(5)?.optInt("base_stat")
-            //Log.e(">>>>","${name}-${type}-${life}-${speed}-${attack}-${defense}")
-            pokemon = Pokemon(
-            user.username,
-            img!!,
-            name!!,
-            type!!,
-            Date().time,
-            "${defense!!}",
-            "${attack!!}",
-            "${speed!!}",
-            "${life!!}")
-
-            if(show){
-                showPokemon()
-            }else{
-                catchPokemon()
-            }
+         try {
+             val json = client.inputStream.bufferedReader().readText()
+             val jsonObject = JSONObject(json)
+             val name = jsonObject.optJSONObject("species")?.optString("name")
+             val type = jsonObject.optJSONArray("types")?.getJSONObject(0)?.optJSONObject("type")
+                 ?.optString("name")
+             val img = jsonObject.optJSONObject("sprites")?.optString("front_default")
+             val stat = jsonObject.optJSONArray("stats")
+             val life = stat?.getJSONObject(0)?.optInt("base_stat")
+             val attack = stat?.getJSONObject(1)?.optInt("base_stat")
+             val defense = stat?.getJSONObject(2)?.optInt("base_stat")
+             val speed = stat?.getJSONObject(5)?.optInt("base_stat")
+             //Log.e(">>>>","${name}-${type}-${life}-${speed}-${attack}-${defense}")
+             pokemon = Pokemon(
+                 UUID.randomUUID().toString(),
+                 user.username,
+                 img!!,
+                 name!!,
+                 type!!,
+                 Date().time,
+                 "${defense!!}",
+                 "${attack!!}",
+                 "${speed!!}",
+                 "${life!!}")
+             if(show){
+                 showPokemon()
+             }else{
+                 catchPokemon()
+             }
+         } catch (e: FileNotFoundException){
+             withContext(Dispatchers.Main){
+                 Toast.makeText(this@HomeActivity,"Non existent pokemon",Toast.LENGTH_LONG).show()
+             }
+         }
 
         }
     }
@@ -126,7 +133,7 @@ class HomeActivity : AppCompatActivity(){
     private fun catchPokemon(){
         lifecycleScope.launch(Dispatchers.IO){
             Firebase.firestore.collection("users").document(user.username).collection("pokemones")
-                .document(pokemon.name).set(pokemon)
+                .document(pokemon.uid).set(pokemon)
             Firebase.firestore.collection("users").document(user.username).collection("pokemones")
                 .orderBy("dateCatch", Query.Direction.DESCENDING)
                 .get().addOnCompleteListener{ task ->

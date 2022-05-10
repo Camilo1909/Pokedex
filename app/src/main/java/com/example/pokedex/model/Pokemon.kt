@@ -2,8 +2,10 @@ package com.example.pokedex.model
 
 import android.graphics.Bitmap
 import java.io.Serializable
+import java.util.*
 
 data class Pokemon (
+    val uid: String = "",
     val username:String = "",
     val img: String = "",
     val name: String = "",

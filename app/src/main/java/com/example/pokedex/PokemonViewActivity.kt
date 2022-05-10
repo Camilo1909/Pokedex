@@ -46,7 +46,7 @@ class PokemonViewActivity : AppCompatActivity() {
         binding.dropBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 Firebase.firestore.collection("users").document(user?.username.toString())
-                    .collection("pokemones").document(pokemon?.name.toString())
+                    .collection("pokemones").document(pokemon?.uid.toString())
                     .delete()
                 Firebase.firestore.collection("users").document(user?.username.toString())
                     .collection("pokemones").orderBy("dateCatch", Query.Direction.DESCENDING)

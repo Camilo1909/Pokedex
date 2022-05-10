@@ -36,7 +36,7 @@ class PokemonCatchActivity : AppCompatActivity() {
         Picasso.get().load(pokemon.img).into(binding.pokeIg)
 
         binding.catchBt.setOnClickListener {
-            Firebase.firestore.collection("users").document(user.username).collection("pokemones").document(pokemon.name).set(pokemon)
+            Firebase.firestore.collection("users").document(user.username).collection("pokemones").document(pokemon.uid).set(pokemon)
             val intent = Intent(this, HomeActivity::class.java).apply {
                 putExtra("user",user)
             }
