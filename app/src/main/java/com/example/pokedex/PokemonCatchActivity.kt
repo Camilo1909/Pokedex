@@ -41,6 +41,7 @@ class PokemonCatchActivity : AppCompatActivity() {
                 putExtra("user",user)
             }
             startActivity(intent)
+            finish()
         }
     }
 }

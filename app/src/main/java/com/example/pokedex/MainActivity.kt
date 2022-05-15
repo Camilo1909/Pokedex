@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
                         putExtra("user",existingUser)
                     }
                     startActivity(intent)
-                    finish()
                 }
             }
     }
